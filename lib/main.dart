@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'mobiler.dev',
+      title: 'Badminton',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -111,28 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButton: FloatingActionButton(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          child: LikeButton(
-            size: 40,
-            bubblesColor: BubblesColor(
-                dotPrimaryColor: Color(0xFFEDD23B),
-                dotSecondaryColor: Color(0xFF626262)),
-            onTap: (value) async {
-              // js
-              bool result = value;
-              SharedPreferences sharedPreferences =
-              await SharedPreferences.getInstance();
-              List<String> favorites =
-                  sharedPreferences.getStringList("favorites") ?? [];
-              String currentUrl = await webViewController.currentUrl();
 
-              if (!favorites.contains(currentUrl)) {
-                favorites.add(currentUrl);
-                sharedPreferences.setStringList("favorites", favorites);
-              }
-
-              return !result;
-            },
-          ),
         ),
         bottomNavigationBar: BottomAppBar(
           child: Container(
