@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -122,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: FlatButton.icon(
                     icon: Icon(
-                      Icons.home,
+                      Icons.view_headline,
                       color: Color(0xFF626262),
                     ),
                     label: Text(
@@ -143,11 +141,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: FlatButton.icon(
                     icon: Icon(
-                      Icons.home,
+                      Icons.games_outlined,
                       color: Color(0xFF626262),
                     ),
                     label: Text(
-                      "SBS",
+                      "Sbs",
                       style: TextStyle(
                         color: Color(0xFF626262),
                       ),
