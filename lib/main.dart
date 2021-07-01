@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Color(0xFF626262),
         body: SafeArea(
           child: WebView(
+
             javascriptMode: JavascriptMode.unrestricted,
             initialUrl: "https://badminton.gov.tr/",
             onWebViewCreated: (controller) {
@@ -86,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       forceSafariVC: false,
                                       forceWebView: false,
                                       headers: <String, String>{
-                                        'my_header_key': 'my_header_value'
+                                        'Badminton ': 'Badminton'
                                       },
                                     );
                                   } else {
@@ -113,18 +114,18 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         bottomNavigationBar: BottomAppBar(
           child: Container(
-            height: 60,
-            color: Color(0xFFEDD23B),
+            height: 45,
+            color: Colors.white,
             child: Row(
               children: <Widget>[
                 Expanded(
                   child: FlatButton.icon(
                     icon: Icon(
-                      Icons.view_headline,
+                      Icons.home,
                       color: Color(0xFF626262),
                     ),
                     label: Text(
-                      "Web Site ",
+                      "ANASAYFA",
                       style: TextStyle(
                         color: Color(0xFF626262),
                       ),
@@ -138,14 +139,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: VerticalDivider(),
                 ),
+               
                 Expanded(
                   child: FlatButton.icon(
                     icon: Icon(
-                      Icons.games_outlined,
+                      Icons.apps,
                       color: Color(0xFF626262),
                     ),
                     label: Text(
-                      "Sbs",
+                      "SBS",
                       style: TextStyle(
                         color: Color(0xFF626262),
                       ),
