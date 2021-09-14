@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,6 +30,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   WebViewController webViewController;
 
+  bool showSpinner = true;
+
   @override
   void initState() {
     super.initState();
@@ -38,7 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xFF626262),
-        body: SafeArea(
+        body: ModalProgressHUD(
+          inAsyncCall: showSpinner,
           child: WebView(
 
             javascriptMode: JavascriptMode.unrestricted,
@@ -46,20 +50,23 @@ class _MyHomePageState extends State<MyHomePage> {
             onWebViewCreated: (controller) {
               webViewController = controller;
               print("::: onWebViewCreated");
+
             },
             onPageStarted: (text) {
               print("::: onPageStarted");
+
             },
             onPageFinished: (text) {
               print("::: onPageFinished");
+              setState(() {
+                showSpinner = false;
+              });
             },
             onWebResourceError: (error) {
               print("::: onWebResourceError");
             },
-
             navigationDelegate: (NavigationRequest request) {
-
-              if (!request.url.contains('badminton.gov.tr')) {
+              if (!request.url.contains('https://badminton.gov.tr/')) {
                 showDialog(
                     context: context,
                     builder: (context) {
@@ -110,7 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButton: FloatingActionButton(
           elevation: 0,
           backgroundColor: Colors.transparent,
-
         ),
         bottomNavigationBar: BottomAppBar(
           child: Container(
@@ -131,6 +137,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     onPressed: () {
+                      setState(() {
+                        showSpinner = true;
+                      });
                       webViewController.loadUrl("https://badminton.gov.tr/");
                     },
                   ),
@@ -153,6 +162,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     onPressed: () {
+                      setState(() {
+                        showSpinner = true;
+                      });
                       webViewController.loadUrl("https://sbs.badminton.gov.tr/");
                     },
                   ),
