@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 void main() {
   runApp(MyApp());
 }
@@ -31,10 +31,13 @@ class _MyHomePageState extends State<MyHomePage> {
   WebViewController webViewController;
 
   bool showSpinner = true;
+  static final String oneSignalAppId = "5043040a-a7c7-49a1-80ef-fa5d89bd7638";
 
   @override
   void initState() {
     super.initState();
+    initPlatformState();
+
   }
 
   @override
@@ -66,49 +69,49 @@ class _MyHomePageState extends State<MyHomePage> {
               print("::: onWebResourceError");
             },
             navigationDelegate: (NavigationRequest request) {
-              if (!request.url.contains('https://badminton.gov.tr/')) {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        title: Text("Tarayıda aç?"),
-                        //backgroundColor: Color(0xFFEDD23B),
-                        actions: <Widget>[
-                          ButtonBar(
-                            children: <Widget>[
-                              FlatButton(
-                                child: Text("Hayır"),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              FlatButton(
-                                child: Text("Evet"),
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                  if (await canLaunch(request.url)) {
-                                    await launch(
-                                      request.url,
-                                      forceSafariVC: false,
-                                      forceWebView: false,
-                                      headers: <String, String>{
-                                        'Badminton ': 'Badminton'
-                                      },
-                                    );
-                                  } else {
-                                    throw 'Could not launch $request.url';
-                                  }
-                                },
-                              )
-                            ],
-                          )
-                        ],
-                      );
-                    });
-                return NavigationDecision.prevent;
-              }
+              // if (!request.url.contains('https://badminton.gov.tr/')) {
+              //   showDialog(
+              //       context: context,
+              //       builder: (context) {
+              //         return AlertDialog(
+              //           shape: RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(10)),
+              //           title: Text("Tarayıda aç?"),
+              //           //backgroundColor: Color(0xFFEDD23B),
+              //           actions: <Widget>[
+              //             ButtonBar(
+              //               children: <Widget>[
+              //                 FlatButton(
+              //                   child: Text("Hayır"),
+              //                   onPressed: () {
+              //                     Navigator.pop(context);
+              //                   },
+              //                 ),
+              //                 FlatButton(
+              //                   child: Text("Evet"),
+              //                   onPressed: () async {
+              //                     Navigator.pop(context);
+              //                     if (await canLaunch(request.url)) {
+              //                       await launch(
+              //                         request.url,
+              //                         forceSafariVC: false,
+              //                         forceWebView: false,
+              //                         headers: <String, String>{
+              //                           'Badminton ': 'Badminton'
+              //                         },
+              //                       );
+              //                     } else {
+              //                       throw 'Could not launch $request.url';
+              //                     }
+              //                   },
+              //                 )
+              //               ],
+              //             )
+              //           ],
+              //         );
+              //       });
+              //   return NavigationDecision.prevent;
+              // }
               print('allowing navigation to $request');
               return NavigationDecision.navigate;
             },
@@ -173,5 +176,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ));
+  }
+  Future<void> initPlatformState() async {
+    OneSignal.shared.init(
+      oneSignalAppId,
+    );
+    OneSignal.shared.setInFocusDisplayType(OSNotificationDisplayType.notification);
   }
 }
