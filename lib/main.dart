@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   WebViewController webViewController;
 
   bool showSpinner = true;
-  static final String oneSignalAppId = "5043040a-a7c7-49a1-80ef-fa5d89bd7638";
+  static final String oneSignalAppId = "b521b9bb-69e6-4d2f-b6a3-52500fa90e9f";
 
   @override
   void initState() {
